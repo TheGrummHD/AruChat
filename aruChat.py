@@ -9,7 +9,7 @@ import json
 
 # os.chdir(r'%AppData%')
 # os.getenv('APPDATA')
-
+directory = os.getcwd()
 
 def getCfg():
 	with open('configArusen.json', 'r', encoding = 'utf-8') as f:
@@ -63,7 +63,7 @@ saveCfg(cfg)
 
 
 # cmds list
-cmdListM = (Fore.YELLOW + Style.BRIGHT + '・ ランダム\n・ 名前を変える\n・ 出る\n・ ファイル作成\n・ ファイルｓうｔんｇｂｙｒ' + Style.RESET_ALL) #\n・ \n・ \n・ \n・ \n・ \n・ 
+cmdListM = (Fore.YELLOW + Style.BRIGHT + '・ ランダム\n・ 名前を変える\n・ 出る\n・ ファイル作成\n' + Style.RESET_ALL) #\n・ \n・ \n・ \n・ \n・ \n・ 
 
 
 print(Fore.GREEN + Style.BRIGHT + 'こんにちは、アルチャットです。 \nコマンドリストは' + Fore.YELLOW + ' "help" ' + Fore.GREEN + 'で見れます' + Style.RESET_ALL)
@@ -114,9 +114,16 @@ while True:
 				fileNameFull = fileName
 			f = open(f'{fileNameFull}', 'w')
 
+		elif user_message == '場所情報':
+			message = '今のシステム'
+
 		elif user_message == '開ける':
-			filename = input()
-			os.system("start "+filename)
+			filename = input("ファイル名: ")
+			try:
+				os.system("start " + filename)
+
+			except:
+				message = f'{filename} が見つかりませんでした。'
 
 		elif user_message == '出る':
 			quit()

@@ -115,7 +115,8 @@ while True:
 			f = open(f'{fileNameFull}', 'w')
 
 		elif user_message == '場所情報':
-			message = '今のシステム'
+			message = f'今のシステム道: "{directory}"\n{os.system("tree")}'
+
 
 		elif user_message == '開ける':
 			filename = input("ファイル名: ")

@@ -1,6 +1,8 @@
 from colorama import init, Fore, Back, Style
-
 init()
+
+from googletrans import Translator
+translator = Translator()
 
 import time
 import random
@@ -63,7 +65,7 @@ saveCfg(cfg)
 
 
 # cmds list
-cmdListM = (Fore.YELLOW + Style.BRIGHT + '・ ランダム\n・ 名前を変える\n・ 出る\n・ ファイル作成\n' + Style.RESET_ALL) #\n・ \n・ \n・ \n・ \n・ \n・ 
+cmdListM = (Fore.YELLOW + Style.BRIGHT + '・ ランダム\n・ 名前を変える\n・ 出る\n・ ファイル作成\n・ 開ける\n・ 道を変える\n・ ルート情報' + Style.RESET_ALL) #\n・ \n・ \n・ \n・ \n・ \n・ 
 
 
 print(Fore.GREEN + Style.BRIGHT + 'こんにちは、アルチャットです。 \nコマンドリストは' + Fore.YELLOW + ' "help" ' + Fore.GREEN + 'で見れます' + Style.RESET_ALL)
@@ -114,9 +116,17 @@ while True:
 				fileNameFull = fileName
 			f = open(f'{fileNameFull}', 'w')
 
-		elif user_message == '場所情報':
-			message = f'今のシステム道: "{directory}"\n{os.system("tree")}'
+		elif user_message == 'ルート情報':
+			message = (f'今のシステムルート: "' + Fore.YELLOW + Style.BRIGHT + directory + Style.RESET_ALL + f'"\n{os.system("tree")}')
 
+		elif user_message == '道を変える': 
+			root = str(input("ルートを書いてください: "))
+			try:
+				os.chdir(root)
+				message = (Style.BRIGHT + 'システムルートが "' + Fore.YELLOW + root + Style.RESET_ALL + '" になりました。')
+			except:
+				message = '問題が発生しました。'
+			
 
 		elif user_message == '開ける':
 			filename = input("ファイル名: ")
@@ -125,6 +135,16 @@ while True:
 
 			except:
 				message = f'{filename} が見つかりませんでした。'
+
+		# elif user_message == 'ほんやく':
+		# 	text = str(input(Fore.YELLOW + Style.BRIGHT + 'テキスト: ' + Style.RESET_ALL ))
+		# 	language = str(input("jp, en: "))
+			
+		# 	result = translator.translate(text, src = 'en', dest = 'jp')
+
+		# 	message = f'{text} ->\n{result}'
+
+
 
 		elif user_message == '出る':
 			quit()
@@ -140,7 +160,7 @@ while True:
 	cfg = getCfg()
 
 	UserName = cfg['SETTINGS']['USERNAME']
-	uMessage = input(f"{UserName}> ")
+	uMessage = input(Fore.YELLOW + Style.BRIGHT + UserName + ' - .\\' + Style.RESET_ALL + Fore.GREEN + os.path.basename(directory) + Style.RESET_ALL + Fore.YELLOW + '\\ \n$ ' + Style.RESET_ALL)
 
 	aiMessage = aiMessage(str(uMessage))
 	print(aiMessage)

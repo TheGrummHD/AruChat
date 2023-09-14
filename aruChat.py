@@ -8,6 +8,7 @@ import time
 import random
 import os
 import json
+import shutil
 
 # os.chdir(r'%AppData%')
 appdata_path = os.getenv('APPDATA')
@@ -77,9 +78,12 @@ HelpList = {
 	'ルートを変える / cd': 'ルートを変えるファイル (例: cd ..\\ - 今のファイルから一歩後ろへ移動する, cd C:\\Users\\(名前)\\Desktop - デスクトップへ移動する',
 	'開ける / start, open': 'ファイルを開ける 例: start 卵画像.jpg *注意 - もし開けたいファイルが違うルートにあったら開くことはできません。（ルートを変えるには - cd (ルート) で違うファイルに行けます）ls で今のフォルダーに入っているファイルやフォルダーが見られます。',
 	'ファイル作成 / cr': 'ファイル作成',
+	'taskkill / 殺す': 'タスク/アプリを終了する',
+	'tasklist / タスクリスト': 'タスクのリスト',
+	'フォルダー作成 / cr folder': 'フォルダーを作成する',
+	'削除 / del': 'ファイル / フォルダー を削除する',
 	'ランダム / random': 'BETA A か B をてきとうで選ぶ',
 	'出る / exit, q': 'アプリが閉まる'
-
 }
 
 # NEW
@@ -207,6 +211,26 @@ while True:
 		# 	result = translator.translate(text, src = 'en', dest = 'jp')
 
 		# 	message = f'{text} ->\n{result}'
+		elif user_message in ['ころす', 'taskkill', 'taskkill', 'kill']:
+			taskName = str(input("「タスクリスト」で見れます。\nタスク名: "))
+			os.system('taskkill /im ' + taskName + ' /f')
+
+		elif user_message in ['tasklist','タスクリスト']:
+			os.system('tasklist')
+
+		elif user_message in ['フォルダー作成', 'cr folder']:
+			folderName = str(input('フォルダー名: '))
+			os.makedirs(f'./{folderName}')
+
+		elif user_message in ['削除', 'remove', 'del', 'rm']:
+			fileorfolder = str(input('1. ファイル\n2. フォルダー\n> '))
+			fileName = str(input('ファイル / フォルダー 名: '))
+
+			if fileorfolder == '1':
+				os.remove(os.path.join(os.getcwd(), fileName))
+
+			else:
+				shutil.rmtree(os.path.join(os.getcwd(), fileName))
 
 		elif user_message in ['出る', 'exit', 'q']:
 			quit()

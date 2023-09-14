@@ -204,6 +204,10 @@ while True:
 			except:
 				message = f'{filename} が見つかりませんでした。'
 
+		elif user_message in ['シャットダウン', 'shutdown']:
+			sec = int(input('何秒にシャットダウンしますか？: '))
+			os.system('shutdown /s /t ' + sec)
+
 		# elif user_message == 'ほんやく':
 		# 	text = str(input(Fore.YELLOW + Style.BRIGHT + 'テキスト: ' + Style.RESET_ALL ))
 		# 	language = str(input("jp, en: "))

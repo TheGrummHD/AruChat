@@ -82,6 +82,8 @@ HelpList = {
 	'ファイル作成 / cr': 'ファイル作成',
 	'taskkill / 殺す': 'タスク/アプリを終了する',
 	'tasklist / タスクリスト': 'タスクのリスト',
+	'通訳 / translate': '文を通訳する',
+	'シャットダウン / shutdown': 'パソコンを何秒かにシャットダウンする',
 	'フォルダー作成 / cr folder': 'フォルダーを作成する',
 	'削除 / del': 'ファイル / フォルダー を削除する',
 	'ランダム / random': 'BETA A か B をてきとうで選ぶ',
@@ -214,7 +216,7 @@ while True:
 			else:
 				os.system('shutdown /s /t ' + sec)
 
-		elif user_message == 'translate':
+		elif user_message in ['translate', '訳す', '通訳']:
 			text = str(input(Fore.YELLOW + Style.BRIGHT + 'テキスト: ' + Style.RESET_ALL ))
 			language = str(input("何語に通訳しますか？\njp, en: "))
 

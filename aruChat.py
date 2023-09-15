@@ -205,8 +205,12 @@ while True:
 				message = f'{filename} が見つかりませんでした。'
 
 		elif user_message in ['シャットダウン', 'shutdown']:
-			sec = int(input('何秒にシャットダウンしますか？: '))
-			os.system('shutdown /s /t ' + sec)
+			sec = str(input('（「-」でキャンセルできます）\n何秒にシャットダウンしますか？: '))
+			if sec == '-':
+				os.system('shutdown /a')
+
+			else:
+				os.system('shutdown /s /t ' + sec)
 
 		# elif user_message == 'ほんやく':
 		# 	text = str(input(Fore.YELLOW + Style.BRIGHT + 'テキスト: ' + Style.RESET_ALL ))

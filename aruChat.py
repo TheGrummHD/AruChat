@@ -1,8 +1,10 @@
 from colorama import init, Fore, Back, Style
 init()
 
-from googletrans import Translator
-translator = Translator()
+# from googletrans import Translator
+from translate import Translator
+# translator = Translator()
+# translator = Translator(service_urls=['translate.googleapis.com'])
 
 import time
 import random
@@ -212,13 +214,21 @@ while True:
 			else:
 				os.system('shutdown /s /t ' + sec)
 
-		# elif user_message == 'ほんやく':
-		# 	text = str(input(Fore.YELLOW + Style.BRIGHT + 'テキスト: ' + Style.RESET_ALL ))
-		# 	language = str(input("jp, en: "))
-			
-		# 	result = translator.translate(text, src = 'en', dest = 'jp')
+		elif user_message == 'translate':
+			text = str(input(Fore.YELLOW + Style.BRIGHT + 'テキスト: ' + Style.RESET_ALL ))
+			language = str(input("何語に通訳しますか？\njp, en: "))
 
-		# 	message = f'{text} ->\n{result}'
+			if language == 'jp':
+				tr = Translator(to_lang="ja")
+
+			elif language == 'en':
+				tr = Translator(to_lang="en")
+
+			
+			result = tr.translate(text)
+
+			message = f'{text} -> {result}'
+
 		elif user_message in ['ころす', 'taskkill', 'taskkill', 'kill']:
 			taskName = str(input("「タスクリスト」で見れます。\nタスク名: "))
 			os.system('taskkill /im ' + taskName + ' /f')
